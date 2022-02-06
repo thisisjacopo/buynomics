@@ -12,10 +12,6 @@ const MainScreen = () => {
   const { retailers, setRetailers } = useContext(RetailersContext);
 
   useEffect(() => {
-    // console.log(manufactors, "manufactors");
-    // console.log(distributors, "distributors");
-    // console.log(retailers, "retailers");
-    // retailers.forEach((retailer) => console.log(retailer.name, "hiiii"));
   }, [manufactors, distributors, retailers]);
 
   return (
