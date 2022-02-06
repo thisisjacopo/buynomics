@@ -1,20 +1,23 @@
-//SET UP AND SECRETS FOR OUR DB IN THE FIREBASE PROJECT
+import { getFirestore } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { collection, getDocs } from "firebase/firestore";
 
-require("dotenv").config();
-import firebase from "firebase";
-import "firebase/storage";
+const firebaseApp = initializeApp({
+  apiKey: "AIzaSyBizAb2_eC9C4jY2QxLE3mKPmm0eH-gYa0",
+  authDomain: "buynomics-test.firebaseapp.com",
+  projectId: "buynomics-test",
+  storageBucket: "buynomics-test.appspot.com",
+  messagingSenderId: "956616993739",
+  appId: "1:956616993739:web:59fc924a19d03b7af1a44e",
+  measurementId: "G-GG7FRQH63E",
+});
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTHDOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASEURL,
-  projectId: process.env.REACT_APP_PROJECTID,
-  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGINSENDERID,
-  appId: process.env.REACT_APP_APPID,
-};
-firebase.initializeApp(firebaseConfig);
+const db = getFirestore();
 
-const storageRef = firebase.storage();
+// const querySnapshot = await onSnapshot(collection(db, "manufacturers"));
+// querySnapshot.forEach((doc) => {
+//   console.log(doc, "doc");
+// });
 
-export { storageRef, firebase as default };
+
+export default db;
