@@ -41,10 +41,11 @@ const AddModal = ({ addModalIsOpen, setAddModalIsOpen }) => {
       refToCollection = collection(db, "retailers");
     }
     try {
-      const docRef = await addDoc(refToCollection, {
+      await addDoc(refToCollection, {
         name: newName,
         order: newOrder,
         createdAt: Timestamp.fromDate(new Date()),
+        type: newType,
       });
     } catch (err) {
       console.log(err);
@@ -96,7 +97,7 @@ const AddModal = ({ addModalIsOpen, setAddModalIsOpen }) => {
           <option value="Range">Range</option>
           <option value="Dropdown">Dropdown</option>
         </Form.Select>
-
+        <br></br>
         <div
           className="btns-modal-div"
           style={{

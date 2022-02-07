@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import db from "../../util/firebase";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const customStyles = {
   content: {
@@ -19,12 +19,16 @@ const customStyles = {
   },
 };
 
-
-
-const EditModal = ({ editModalIsOpen, setEditModalIsOpen }) => {
+const EditModal = ({
+  editModalIsOpen,
+  setEditModalIsOpen,
+  documentId,
+  categoryToEdit,
+}) => {
   const [editName, setEditName] = useState("");
   const [editOrder, setEditOrder] = useState(0);
   const [newType, setNewType] = useState("");
+  const [receivedDoc, setReceivedDoc] = useState({});
 
   const closeModal = () => {
     setEditModalIsOpen(false);
@@ -32,15 +36,40 @@ const EditModal = ({ editModalIsOpen, setEditModalIsOpen }) => {
 
   const handleEditSubmit = async () => {
     try {
-      console.log("object");
+      const data = {
+        name: editName,
+        order: editOrder,
+        type: newType,
+        category: categoryToEdit,
+      };
+      const editedDoc = doc(db, categoryToEdit, documentId);
+      await updateDoc(editedDoc, data);
     } catch (err) {
       console.log(err);
     }
     setEditModalIsOpen(false);
     window.location.reload();
   };
+  const handleDetails = async (documentId, categoryToEdit) => {
+    try {
+      const docRef = doc(db, categoryToEdit, documentId);
+      const docSnap = await getDoc(docRef);
+      setReceivedDoc(docSnap.data());
+      setEditName(receivedDoc.name);
+      setEditOrder(receivedDoc.order);
+      if (receivedDoc.type !== undefined) {
+        setNewType(receivedDoc.type);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (editModalIsOpen === true) {
+      handleDetails(documentId, categoryToEdit);
+    }
+  }, [documentId, categoryToEdit, receivedDoc]);
   return (
     <Modal
       style={customStyles}
@@ -48,6 +77,46 @@ const EditModal = ({ editModalIsOpen, setEditModalIsOpen }) => {
       onRequestClose={closeModal}
     >
       <div className="modal-container">
+        <Form.Label>
+          Category: <b>{categoryToEdit}</b>{" "}
+        </Form.Label>
+        <br></br>
+
+        <Form.Label>Name:</Form.Label>
+        <Form.Control
+          type="name"
+          maxLength="255"
+          value={editName}
+          onChange={(e) => setEditName(e.target.value)}
+        />
+        {editName === "" ? <Form.Text>Please enter a name...</Form.Text> : null}
+        <br></br>
+        <Form.Label>Order:</Form.Label>
+        <Form.Select onChange={(e) => setEditOrder(e.target.value)}>
+          <option value={editOrder}>Select order: {editOrder}</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </Form.Select>
+        <br></br>
+        <Form.Label>Type:</Form.Label>
+        {receivedDoc.type !== undefined ? (
+          <Form.Select onChange={(e) => setNewType(e.target.value)}>
+            <option value={newType}>Type: {newType}</option>
+            <option value="Range">Range</option>
+            <option value="Dropdown">Dropdown</option>
+          </Form.Select>
+        ) : (
+          <Form.Select onChange={(e) => setNewType(e.target.value)}>
+            <option>Type:</option>
+            <option value="Range">Range</option>
+            <option value="Dropdown">Dropdown</option>
+          </Form.Select>
+        )}
+        <br></br>
         <div
           className="btns-modal-div"
           style={{

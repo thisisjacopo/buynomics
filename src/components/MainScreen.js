@@ -18,14 +18,16 @@ const MainScreen = () => {
   //STATES
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [documentId, setDocumentId] = useState("");
+  const [categoryToEdit, setCategoryToEdit] = useState("");
 
-  const handleEditOptions = async (id) => {
+  const handleEditOptions = async (id, category) => {
     setEditModalIsOpen(true);
-    console.log(id, "id");
+    setDocumentId(id);
+    setCategoryToEdit(category);
   };
 
   const handleDelete = async (id, category) => {
-    console.log(id, "id");
     const docToDelete = doc(db, category, id);
     await deleteDoc(docToDelete);
     window.location.reload();
@@ -158,6 +160,8 @@ const MainScreen = () => {
       <EditModal
         editModalIsOpen={editModalIsOpen}
         setEditModalIsOpen={setEditModalIsOpen}
+        documentId={documentId}
+        categoryToEdit={categoryToEdit}
       />
     </div>
   );
