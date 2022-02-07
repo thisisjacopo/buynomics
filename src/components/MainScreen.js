@@ -7,6 +7,8 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import AddModal from "./modals/AddModal";
 import EditModal from "./modals/EditModal";
+import { doc, deleteDoc } from "firebase/firestore";
+import db from "../util/firebase";
 
 const MainScreen = () => {
   //CONTEXTS
@@ -17,9 +19,16 @@ const MainScreen = () => {
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 
-  const handleEditOptions = (id) => {
+  const handleEditOptions = async (id) => {
     setEditModalIsOpen(true);
     console.log(id, "id");
+  };
+
+  const handleDelete = async (id, category) => {
+    console.log(id, "id");
+    const docToDelete = doc(db, category, id);
+    await deleteDoc(docToDelete);
+    window.location.reload();
   };
 
   useEffect(() => {}, [manufactors, distributors, retailers]);
@@ -60,11 +69,17 @@ const MainScreen = () => {
                       <Button
                         className="w-25 h-25"
                         variant="warning"
-                        onClick={() => handleEditOptions(ms.id)}
+                        onClick={() =>
+                          handleEditOptions(ms.id, "manufacturers")
+                        }
                       >
                         Edit
                       </Button>{" "}
-                      <Button className="w-25 h-25" variant="danger">
+                      <Button
+                        className="w-25 h-25"
+                        variant="danger"
+                        onClick={() => handleDelete(ms.id, "manufacturers")}
+                      >
                         Delete
                       </Button>
                     </td>
@@ -87,11 +102,15 @@ const MainScreen = () => {
                       <Button
                         className="w-25 h-25"
                         variant="warning"
-                        onClick={() => handleEditOptions(ms.id)}
+                        onClick={() => handleEditOptions(ms.id, "distributors")}
                       >
                         Edit
                       </Button>{" "}
-                      <Button className="w-25 h-25" variant="danger">
+                      <Button
+                        className="w-25 h-25"
+                        variant="danger"
+                        onClick={() => handleDelete(ms.id, "distributors")}
+                      >
                         Delete
                       </Button>
                     </td>
@@ -114,11 +133,15 @@ const MainScreen = () => {
                       <Button
                         className="w-25 h-25"
                         variant="warning"
-                        onClick={() => handleEditOptions(ms.id)}
+                        onClick={() => handleEditOptions(ms.id, "retailers")}
                       >
                         Edit
                       </Button>{" "}
-                      <Button className="w-25 h-25" variant="danger">
+                      <Button
+                        className="w-25 h-25"
+                        variant="danger"
+                        onClick={() => handleDelete(ms.id, "retailers")}
+                      >
                         Delete
                       </Button>
                     </td>

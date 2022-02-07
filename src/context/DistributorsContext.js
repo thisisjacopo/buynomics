@@ -6,17 +6,15 @@ export const DistributorsContext = createContext();
 
 const DistributorsProvider = (props) => {
   const [distributors, setDistributors] = useState([]);
+  const distributionsRef = collection(db, "distributors");
 
   //GETTING THE MANUFACTORS COLLECTION FROM DB
 
-  const getDistributors = async () => {
-    const querySnapshot = await getDocs(collection(db, "distributors"));
-    querySnapshot.forEach((doc) => {
-      setDistributors((prev) => [...prev, doc.data()]);
-    });
-  };
-
   useEffect(() => {
+    const getDistributors = async () => {
+      const data = await getDocs(distributionsRef);
+      setDistributors(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
     getDistributors();
   }, []);
 

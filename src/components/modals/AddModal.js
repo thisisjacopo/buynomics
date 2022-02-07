@@ -41,15 +41,15 @@ const AddModal = ({ addModalIsOpen, setAddModalIsOpen }) => {
       refToCollection = collection(db, "retailers");
     }
     try {
-      await addDoc(refToCollection, {
+      const docRef = await addDoc(refToCollection, {
         name: newName,
         order: newOrder,
         createdAt: Timestamp.fromDate(new Date()),
-        id: Math.floor(Math.random() * 10000000).toString(),
       });
     } catch (err) {
       console.log(err);
     }
+
     setAddModalIsOpen(false);
     window.location.reload();
   };

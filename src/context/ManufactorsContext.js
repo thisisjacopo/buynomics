@@ -6,21 +6,14 @@ export const ManufactorsContext = createContext();
 
 const ManufactorsProvider = (props) => {
   const [manufactors, setManufactors] = useState([]);
+  const manufactorsRef = collection(db, "manufacturers");
 
   //GETTING THE MANUFACTORS COLLECTION FROM DB
-
-  const getManufactors = async () => {
-    const querySnapshot = await getDocs(collection(db, "manufacturers"));
-    querySnapshot.forEach((doc) => {
-      setManufactors((prev) => [...prev, doc.data()]);
-    });
-  };
-
-  // Later ...
-
-  // Stop listening to changes
-
   useEffect(() => {
+    const getManufactors = async () => {
+      const data = await getDocs(manufactorsRef);
+      setManufactors(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
     getManufactors();
   }, []);
 
