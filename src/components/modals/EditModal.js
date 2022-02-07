@@ -43,6 +43,7 @@ const EditModal = ({
         category: categoryToEdit,
       };
       const editedDoc = doc(db, categoryToEdit, documentId);
+      console.log(data, documentId, "here");
       await updateDoc(editedDoc, data);
     } catch (err) {
       console.log(err);
@@ -69,7 +70,7 @@ const EditModal = ({
     if (editModalIsOpen === true) {
       handleDetails(documentId, categoryToEdit);
     }
-  }, [documentId, categoryToEdit, receivedDoc]);
+  }, [documentId, categoryToEdit]);
   return (
     <Modal
       style={customStyles}
@@ -86,14 +87,14 @@ const EditModal = ({
         <Form.Control
           type="name"
           maxLength="255"
-          value={editName}
+          placeholder={receivedDoc.name}
           onChange={(e) => setEditName(e.target.value)}
         />
         {editName === "" ? <Form.Text>Please enter a name...</Form.Text> : null}
         <br></br>
         <Form.Label>Order:</Form.Label>
         <Form.Select onChange={(e) => setEditOrder(e.target.value)}>
-          <option value={editOrder}>Select order: {editOrder}</option>
+          <option>Select order: {receivedDoc.order}</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -105,7 +106,7 @@ const EditModal = ({
         <Form.Label>Type:</Form.Label>
         {receivedDoc.type !== undefined ? (
           <Form.Select onChange={(e) => setNewType(e.target.value)}>
-            <option value={newType}>Type: {newType}</option>
+            <option value={newType}>Type: {receivedDoc.type}</option>
             <option value="Range">Range</option>
             <option value="Dropdown">Dropdown</option>
           </Form.Select>
