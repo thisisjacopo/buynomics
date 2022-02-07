@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/buynomics-test/static/css/main.a95675d6.css",
+    "main.js": "/buynomics-test/static/js/main.ed5cd197.js",
+    "index.html": "/buynomics-test/index.html",
+    "main.a95675d6.css.map": "/buynomics-test/static/css/main.a95675d6.css.map",
+    "main.ed5cd197.js.map": "/buynomics-test/static/js/main.ed5cd197.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a95675d6.css",
+    "static/js/main.ed5cd197.js"
+  ]
+}
