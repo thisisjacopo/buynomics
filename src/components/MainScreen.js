@@ -6,6 +6,7 @@ import { RetailersContext } from "../context/RetailersContext";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import AddModal from "./modals/AddModal";
+import EditModal from "./modals/EditModal";
 
 const MainScreen = () => {
   //CONTEXTS
@@ -14,6 +15,12 @@ const MainScreen = () => {
   const { retailers, setRetailers } = useContext(RetailersContext);
   //STATES
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+
+  const handleEditOptions = (id) => {
+    setEditModalIsOpen(true);
+    console.log(id, "id");
+  };
 
   useEffect(() => {}, [manufactors, distributors, retailers]);
 
@@ -50,7 +57,11 @@ const MainScreen = () => {
                     <td>Manufactor: {ms.name}</td>
                     <td>{ms.order}</td>
                     <td>
-                      <Button className="w-25 h-25" variant="warning">
+                      <Button
+                        className="w-25 h-25"
+                        variant="warning"
+                        onClick={() => handleEditOptions(ms.id)}
+                      >
                         Edit
                       </Button>{" "}
                       <Button className="w-25 h-25" variant="danger">
@@ -73,7 +84,11 @@ const MainScreen = () => {
                     <td>Distributor: {ms.name}</td>
                     <td>{ms.order}</td>
                     <td>
-                      <Button className="w-25 h-25" variant="warning">
+                      <Button
+                        className="w-25 h-25"
+                        variant="warning"
+                        onClick={() => handleEditOptions(ms.id)}
+                      >
                         Edit
                       </Button>{" "}
                       <Button className="w-25 h-25" variant="danger">
@@ -96,7 +111,11 @@ const MainScreen = () => {
                     <td>Retailer: {ms.name}</td>
                     <td>{ms.order}</td>
                     <td>
-                      <Button className="w-25 h-25" variant="warning">
+                      <Button
+                        className="w-25 h-25"
+                        variant="warning"
+                        onClick={() => handleEditOptions(ms.id)}
+                      >
                         Edit
                       </Button>{" "}
                       <Button className="w-25 h-25" variant="danger">
@@ -112,6 +131,10 @@ const MainScreen = () => {
       <AddModal
         addModalIsOpen={addModalIsOpen}
         setAddModalIsOpen={setAddModalIsOpen}
+      />
+      <EditModal
+        editModalIsOpen={editModalIsOpen}
+        setEditModalIsOpen={setEditModalIsOpen}
       />
     </div>
   );

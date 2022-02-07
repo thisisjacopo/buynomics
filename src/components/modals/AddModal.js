@@ -45,6 +45,7 @@ const AddModal = ({ addModalIsOpen, setAddModalIsOpen }) => {
         name: newName,
         order: newOrder,
         createdAt: Timestamp.fromDate(new Date()),
+        id: Math.floor(Math.random() * 10000000).toString(),
       });
     } catch (err) {
       console.log(err);
