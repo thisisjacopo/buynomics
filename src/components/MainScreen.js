@@ -5,14 +5,17 @@ import { DistributorsContext } from "../context/DistributorsContext";
 import { RetailersContext } from "../context/RetailersContext";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import AddModal from "./modals/AddModal";
 
 const MainScreen = () => {
+  //CONTEXTS
   const { manufactors, setManufactors } = useContext(ManufactorsContext);
   const { distributors, setDistributors } = useContext(DistributorsContext);
   const { retailers, setRetailers } = useContext(RetailersContext);
+  //STATES
+  const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
-  useEffect(() => {
-  }, [manufactors, distributors, retailers]);
+  useEffect(() => {}, [manufactors, distributors, retailers]);
 
   return (
     <div className="main-screen-container">
@@ -22,7 +25,16 @@ const MainScreen = () => {
             <th>Created at:</th>
             <th>Name:</th>
             <th>Order:</th>
-            <th> </th>
+            <th>
+              {" "}
+              <Button
+                className="w-50"
+                variant="primary"
+                onClick={() => setAddModalIsOpen(true)}
+              >
+                Add +
+              </Button>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -97,6 +109,10 @@ const MainScreen = () => {
             })}
         </tbody>
       </Table>
+      <AddModal
+        addModalIsOpen={addModalIsOpen}
+        setAddModalIsOpen={setAddModalIsOpen}
+      />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import db from "../util/firebase";
-import { collection, onSnapshot, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 export const DistributorsContext = createContext();
 

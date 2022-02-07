@@ -12,12 +12,11 @@ const firebaseApp = initializeApp({
   measurementId: "G-GG7FRQH63E",
 });
 
-const db = getFirestore();
+const db = getFirestore(firebaseApp);
 
 // const querySnapshot = await onSnapshot(collection(db, "manufacturers"));
 // querySnapshot.forEach((doc) => {
 //   console.log(doc, "doc");
 // });
-
 
 export default db;
