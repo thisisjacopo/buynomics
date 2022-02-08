@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Buynomics test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Single page application that allows you to do CRUD operations over a list of intermediaries. Built with React and Firebase - Firestore services.
 
-In the project directory, you can run:
+## Backlog
 
-### `npm start`
+- Implement Range and Dropdown types options
+- Implement products Routes and Model (these would very much replicate what's already built for the intermediaries). 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Client / Frontend
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## React Router Routes (React App)
 
-### `npm test`
+| Path | Component  | Permissions      | Behavior  |
+| ---- | ---------- | ---------------- | --------- |
+| `/`  | MainScreen | public `<Route>` | Main Page |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Page Components
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- MainScreen
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Components
 
-### `npm run eject`
+- AddModal
+- EditModal
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contexts
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- DistributorsContext
+- ManufacturersContext
+- RetailersContext 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Server / Backend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Models
 
-## Learn More
+Intermediary model
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+{
+  name: {type: String, required: false, unique: false},
+  order: {type: Number, required: false, unique: false},
+  createdAt: {type: Timestamp, required: false, unique: true},
+  type: {type: String, required: false, unique: false},
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## API / Firebase Endpoints (backend routes)
 
-### Code Splitting
+| HTTP Method | URL                                                      | Request Body   | Success status | Error Status | Description                                                  |
+| ----------- | -------------------------------------------------------- | -------------- | -------------- | ------------ | ------------------------------------------------------------ |
+| GET         | `/manufaturers` `/distributors` `/retailers`             |                | 200            | 404          | Return a complete list of Intermediaries.                    |
+| PUT         | `/manufaturers/:id` `/distributors/:id` `/retailers/:id` | {id, category} | 201            | 400          | Edits Intermediary details except for the category.          |
+| POST        | `/manufaturers` `/distributors` `/retailers`             |                | 201            | 401          | Creates a new document within the selected collection-category. |
+| DELETE      | `/manufaturers/:id` `/distributors/:id` `/retailers/:id` | {id, category} | 200            | 400          | Deletes a single intermediary by its ID.                     |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Links
 
-### Analyzing the Bundle Size
+### Firebase Deploy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+[LINK](https://buynomics-test.web.app/)
 
-### Making a Progressive Web App
+### Github
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+[LINK](https://github.com/thisisjacopo/buynomics-test)
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 
