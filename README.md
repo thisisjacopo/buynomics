@@ -66,6 +66,5 @@ Intermediary model
 
 ### Github
 
-[LINK](https://github.com/thisisjacopo/buynomics-test)
+[LINK](https://github.com/thisisjacopo/buynomics)
 
-### 
